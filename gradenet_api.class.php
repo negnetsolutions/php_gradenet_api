@@ -23,6 +23,13 @@ class gradenet_api
 	function __construct()
 	{
 	}
+  public function getUserInfo($uid)
+  {
+    $this->_api_request = 'user_info';
+    $this->_api_payload['uid'] = $uid;
+
+    return $this->transmit();
+  }
   public function authenticate($uid,$password)
   {
     $this->_api_request = 'authenticate';
@@ -100,7 +107,7 @@ class gradenet_api
     if( $return_status['Status'] == 'ERROR' )
       throw new Exception($return_status['ErrorCode']);
     
-		return true;
+		return $return_status['DATA'];
 	}
 	public function getResponse()
 	{
